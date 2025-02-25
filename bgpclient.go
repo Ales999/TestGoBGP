@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"os"
 	"sort"
 	"strings"
 
@@ -94,9 +95,10 @@ func PrintNeibror(srvAddress string, neibrIp string) {
 	var query *api.ListPeerRequest
 
 	if len(neibrIp) > 0 {
-		query = &api.ListPeerRequest{} // simple - get all peeer's
-	} else {
 		query = &api.ListPeerRequest{Address: neibrIp} // extended, by IP
+	} else {
+		query = &api.ListPeerRequest{} // simple - get all peeer's
+
 	}
 
 	stream, err := client.ListPeer(context.Background(), query) //.ListPolicy(context.Background(), &lp)
@@ -127,7 +129,7 @@ func PrintNeibror(srvAddress string, neibrIp string) {
 			_ipneigbr = resp.Peer.Conf.NeighborAddress
 			log.Printf("IP: %s", _ipneigbr)
 
-			// Сохраним в переменную программы в виде массива, ибо неигбором может быть много.
+			// Сохраним в переменную программы в виде массива, ибо неигборов может быть много.
 			neip = append(neip, _ipneigbr)
 		}
 	}()
@@ -158,16 +160,30 @@ func ShowRibPathByIp(serverApi string, neigbrIp string, target string) (string, 
 	ctx = context.Background()
 
 	var r string = "global"
+	var def *api.Family
+	var family *api.Family
+	var err error
 
-	def := addr2AddressFamily(net.ParseIP(neigbrIp))
+	//
+	if len(neigbrIp) == 0 {
+		PrintNeibror(serverApi, "")
+		os.Exit(0)
+	}
 
-	family, err := checkAddressFamily(def)
+	parsedNeigbrIp := net.ParseIP(neigbrIp)
+	if parsedNeigbrIp == nil {
+		log.Fatalf("Error parsing neigbor ip\n")
+	}
+
+	def = addr2AddressFamily(parsedNeigbrIp)
+
+	family, err = checkAddressFamily(def)
 	if err != nil {
 		return "", err
 	}
 
 	// Parse target for IP or CIDR
-	if _, _, err := parseCIDRorIP(target); err != nil {
+	if _, _, err = parseCIDRorIP(target); err != nil {
 		return "", err
 	}
 
