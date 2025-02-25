@@ -8,7 +8,7 @@ import (
 func main() {
 
 	flagServerApi := flag.String("h", "127.0.0.1:50051", "GoBgp host:port, Example: 192.168.1.10:50051")
-	flagNeigbrIp := flag.String("n", "", "Neigbror, Example: 172.24.1.1")
+	flagNeigbrIp := flag.String("n", "172.24.1.1", "Neigbor, Example: 172.24.1.1")
 	flagTarget := flag.String("t", "104.0.0.1", "find target, Example: 104.0.0.1")
 
 	flag.Parse()
