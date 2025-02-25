@@ -81,7 +81,7 @@ func getNeighbors(address string, enableAdv bool) ([]*api.Peer, error) {
 // Examle use: PrintNeibror("192.168.1.11:50051","172.24.1.1")
 func PrintNeibror(srvAddress string, neibrIp string) {
 
-	var conn *grpc.ClientConn
+	//var conn *grpc.ClientConn
 	conn, err := grpc.NewClient(srvAddress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
