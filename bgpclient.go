@@ -167,7 +167,7 @@ func ShowRibPathByIp(serverApi string, neigbrIp string, target string) (string, 
 	}
 
 	// Parse target for IP or CIDR
-	if _, _, err = parseCIDRorIP(target); err != nil {
+	if _, _, err := parseCIDRorIP(target); err != nil {
 		return "", err
 	}
 
