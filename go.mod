@@ -2,8 +2,6 @@ module github.com/ales999/TestGoBGP
 
 go 1.22.7
 
-toolchain go1.24.0
-
 require (
 	github.com/osrg/gobgp/v3 v3.34.0
 	google.golang.org/grpc v1.64.1
