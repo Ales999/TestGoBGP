@@ -367,7 +367,8 @@ func ShowRibPathByIp(serverApi string, neigbrIp string, target string) (string, 
 					if n := getNextHopFromPathAttributes(attrs); n != nil {
 						nexthop = n.String()
 					}
-					fmt.Printf("Next Hop: %s ", nexthop)
+
+					fmt.Printf("NeigBorIP: %s, Next Hop: %s ", p.NeighborIp, nexthop)
 				}
 			}
 
@@ -406,6 +407,7 @@ func showAsRoute(dsts []*api.Destination) string {
 
 			atti, _ := apiutil.GetNativePathAttributes(p)
 			attrs = append(attrs, atti...)
+			// Test data print
 			//fmt.Printf("attrs: %v\n", attrs)
 		}
 	}
