@@ -17,12 +17,12 @@ func main() {
 
 	//ShowRibPathByIp("172.24.1.1", "101.0.0.9")
 	// 104.0.0.1
-	asPath, err := ShowRibPathByIp(*flagServerApi, *flagNeigbrIp, *flagTarget)
+	_, err := ShowRibPathByIp(*flagServerApi, *flagNeigbrIp, *flagTarget)
 	if err != nil {
 		fmt.Println("Error: ", err)
 		return
 	}
-	fmt.Println(asPath)
+	//fmt.Println(asPath)
 }
 
 // Example Output:
